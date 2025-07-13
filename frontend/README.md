@@ -33,37 +33,28 @@ A modern, responsive web application for managing personal notes and bookmarks b
 ### Installation
 
 1. **Install dependencies:**
-   ```bash
    npm install
-   ```
 
 2. **Environment Setup:**
    Create a `.env.local` file in the root directory:
-   ```bash
    NEXT_PUBLIC_API_URL=http://localhost:5000/api
-   ```
 
 3. **Run the development server:**
-   ```bash
    npm run dev
-   ```
 
 4. **Open your browser:**
    Navigate to `http://localhost:3000`
 
 ## Build for Production
 
-```bash
 # Build the application
 npm run build
 
 # Start the production server
 npm start
-```
 
 ## Project Structure
 
-```
 frontend/
 ├── components/
 │   └── Layout.js           # Main layout component with navigation
@@ -82,7 +73,6 @@ frontend/
 ├── next.config.js
 ├── tailwind.config.js
 └── postcss.config.js
-```
 
 ## Pages & Features
 
@@ -160,7 +150,7 @@ Built with Tailwind CSS featuring:
 
 ### Custom CSS Classes
 
-```css
+   css
 .btn - Base button styling
 .btn-primary - Primary action buttons
 .btn-secondary - Secondary action buttons
@@ -168,7 +158,6 @@ Built with Tailwind CSS featuring:
 .input - Form input styling
 .textarea - Textarea styling
 .card - Card container styling
-```
 
 ## Development Guidelines
 
@@ -180,7 +169,7 @@ Built with Tailwind CSS featuring:
 ### API Calls
 Use the established pattern with try/catch blocks and toast notifications:
 
-```javascript
+   javascript
 try {
   const response = await axios.get(`${API_URL}/endpoint`)
   // Handle success
@@ -188,7 +177,7 @@ try {
 } catch (error) {
   toast.error(error.response?.data?.message || 'Operation failed')
 }
-```
+
 
 ### Styling
 Follow Tailwind CSS conventions and use the custom component classes defined in `globals.css`.

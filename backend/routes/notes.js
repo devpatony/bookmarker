@@ -5,19 +5,16 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// Get all notes with optional search and tag filtering
 router.get('/', auth, async (req, res) => {
   try {
     const { q, tags, page = 1, limit = 10 } = req.query;
     
     let query = { user: req.user._id };
     
-    // Text search
     if (q) {
       query.$text = { $search: q };
     }
     
-    // Tag filtering
     if (tags) {
       const tagArray = tags.split(',').map(tag => tag.trim().toLowerCase());
       query.tags = { $in: tagArray };
@@ -45,7 +42,6 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// Get single note
 router.get('/:id', auth, async (req, res) => {
   try {
     const note = await Note.findOne({ 
@@ -67,7 +63,6 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
-// Create note
 router.post('/', [
   auth,
   body('title').trim().notEmpty().withMessage('Title is required').isLength({ max: 200 }).withMessage('Title must be less than 200 characters'),
@@ -99,7 +94,6 @@ router.post('/', [
   }
 });
 
-// Update note
 router.put('/:id', [
   auth,
   body('title').optional().trim().notEmpty().withMessage('Title cannot be empty').isLength({ max: 200 }).withMessage('Title must be less than 200 characters'),
@@ -138,7 +132,6 @@ router.put('/:id', [
   }
 });
 
-// Delete note
 router.delete('/:id', auth, async (req, res) => {
   try {
     const note = await Note.findOneAndDelete({ 

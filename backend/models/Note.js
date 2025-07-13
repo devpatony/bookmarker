@@ -29,7 +29,6 @@ const noteSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for better search performance
 noteSchema.index({ title: 'text', content: 'text' });
 noteSchema.index({ user: 1, createdAt: -1 });
 

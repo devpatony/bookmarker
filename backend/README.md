@@ -32,17 +32,15 @@ A REST API for managing personal notes and bookmarks built with Node.js, Express
 ### Installation
 
 1. **Install dependencies:**
-   ```bash
    npm install
-   ```
 
 2. **Environment Setup:**
-   Create a `.env` file in the backend directory with these variables:
-   ```bash
+   Create a .env file in the backend directory with these variables:
    NODE_ENV=development
    PORT=5000
    # For MongoDB Atlas (Cloud):
    MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/bookmarker?retryWrites=true&w=majority
+    !I have used clould but for local:
    # For Local MongoDB:
    # MONGODB_URI=mongodb://localhost:27017/bookmarker
    JWT_SECRET=bookmarker_super_secret_key_2025_dev_only_change_in_production
@@ -84,13 +82,11 @@ A REST API for managing personal notes and bookmarks built with Node.js, Express
       - Click "Connect" on your cluster
       - Choose "Connect your application"
       - Copy the connection string
-      - Replace `<password>` with your database user password
-      - Replace `<dbname>` with `bookmarker`
+      - Replace <password> with your database user password
+      - Replace <dbname> with bookmarker
    
    6. **Update .env file:**
-      ```bash
       MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/bookmarker?retryWrites=true&w=majority
-      ```
 
    #### Option B: Local MongoDB
    - Install MongoDB locally on your system
@@ -98,13 +94,11 @@ A REST API for managing personal notes and bookmarks built with Node.js, Express
    - Use: `MONGODB_URI=mongodb://localhost:27017/bookmarker`
 
 4. **Run the server:**
-   ```bash
    # Development mode with auto-restart
    npm run dev
    
    # Production mode
    npm start
-   ```
 
 The server will start on `http://localhost:5000`
 
@@ -135,7 +129,6 @@ The server will start on `http://localhost:5000`
 ## Request Examples
 
 ### Create a Note
-```bash
 POST /api/notes
 Authorization: Bearer <your_jwt_token>
 Content-Type: application/json
@@ -146,10 +139,8 @@ Content-Type: application/json
   "tags": ["personal", "important"],
   "isFavorite": false
 }
-```
 
 ### Create a Bookmark
-```bash
 POST /api/bookmarks
 Authorization: Bearer <your_jwt_token>
 Content-Type: application/json
@@ -161,17 +152,13 @@ Content-Type: application/json
   "tags": ["tools", "development"],
   "isFavorite": false
 }
-```
 
 ### Search Notes/Bookmarks
-```bash
 GET /api/notes?q=searchTerm&tags=tag1,tag2
 GET /api/bookmarks?q=searchTerm&tags=tag1,tag2
-```
 
 ## Project Structure
 
-```
 backend/
 ├── models/
 │   ├── User.js          # User model
@@ -186,7 +173,6 @@ backend/
 ├── server.js            # Main server file
 ├── package.json
 └── .env                 # Environment variables
-```
 
 ## Features
 
@@ -207,9 +193,7 @@ When creating a bookmark without a title, the API automatically fetches the page
 ## Development
 
 For development, use:
-```bash
 npm run dev
-```
 
 This starts the server with nodemon for automatic restarts on file changes.
 
@@ -240,7 +224,6 @@ The API includes comprehensive error handling with appropriate HTTP status codes
    - Make sure the database name in your connection string matches
 
 ### Quick Test Connection
-```bash
 # Test if your MongoDB connection works
 node -e "
 const mongoose = require('mongoose');
@@ -248,7 +231,6 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(() => { console.log('✅ Connected to MongoDB'); process.exit(0); })
   .catch(err => { console.error('❌ Connection failed:', err.message); process.exit(1); });
 "
-```
 
 ### Common Atlas Setup Mistakes
 - Forgetting to replace `<password>` with actual password

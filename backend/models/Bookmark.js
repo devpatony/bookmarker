@@ -40,7 +40,6 @@ const bookmarkSchema = new mongoose.Schema({
   timestamps: true
 });
 
-// Index for better search performance
 bookmarkSchema.index({ title: 'text', description: 'text' });
 bookmarkSchema.index({ user: 1, createdAt: -1 });
 

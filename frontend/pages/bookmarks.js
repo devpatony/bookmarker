@@ -116,7 +116,6 @@ export default function Bookmarks() {
         </button>
       </div>
 
-      {/* Search and Filter */}
       <div className="card p-4 mb-6">
         <div className="grid md:grid-cols-2 gap-4">
           <div>
@@ -146,7 +145,6 @@ export default function Bookmarks() {
         </div>
       </div>
 
-      {/* Bookmarks List */}
       {loading ? (
         <div className="text-center py-8">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
@@ -217,7 +215,6 @@ export default function Bookmarks() {
         </div>
       )}
 
-      {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg p-6 w-full max-w-md">

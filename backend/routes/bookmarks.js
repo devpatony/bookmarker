@@ -7,7 +7,6 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// Helper function to fetch title from URL
 const fetchTitleFromUrl = async (url) => {
   try {
     const response = await axios.get(url, {
@@ -20,7 +19,6 @@ const fetchTitleFromUrl = async (url) => {
     const $ = cheerio.load(response.data);
     let title = $('title').text().trim();
     
-    // Fallback to og:title if regular title is empty
     if (!title) {
       title = $('meta[property="og:title"]').attr('content') || '';
     }
@@ -32,19 +30,16 @@ const fetchTitleFromUrl = async (url) => {
   }
 };
 
-// Get all bookmarks with optional search and tag filtering
 router.get('/', auth, async (req, res) => {
   try {
     const { q, tags, page = 1, limit = 10 } = req.query;
     
     let query = { user: req.user._id };
     
-    // Text search
     if (q) {
       query.$text = { $search: q };
     }
     
-    // Tag filtering
     if (tags) {
       const tagArray = tags.split(',').map(tag => tag.trim().toLowerCase());
       query.tags = { $in: tagArray };
@@ -72,7 +67,6 @@ router.get('/', auth, async (req, res) => {
   }
 });
 
-// Get single bookmark
 router.get('/:id', auth, async (req, res) => {
   try {
     const bookmark = await Bookmark.findOne({ 
@@ -94,7 +88,6 @@ router.get('/:id', auth, async (req, res) => {
   }
 });
 
-// Create bookmark
 router.post('/', [
   auth,
   body('url').trim().notEmpty().withMessage('URL is required').isURL().withMessage('Please enter a valid URL'),
@@ -111,7 +104,6 @@ router.post('/', [
 
     let { title, url, description = '', tags = [], isFavorite = false } = req.body;
 
-    // Auto-fetch title if not provided
     if (!title || title.trim() === '') {
       title = await fetchTitleFromUrl(url);
     }
@@ -136,7 +128,6 @@ router.post('/', [
   }
 });
 
-// Update bookmark
 router.put('/:id', [
   auth,
   body('url').optional().trim().notEmpty().withMessage('URL cannot be empty').isURL().withMessage('Please enter a valid URL'),
@@ -156,7 +147,6 @@ router.put('/:id', [
       updates.tags = updates.tags.map(tag => tag.trim().toLowerCase());
     }
 
-    // Auto-fetch title if URL is updated but title is empty
     if (updates.url && (!updates.title || updates.title.trim() === '')) {
       updates.title = await fetchTitleFromUrl(updates.url);
     }
@@ -184,7 +174,6 @@ router.put('/:id', [
   }
 });
 
-// Delete bookmark
 router.delete('/:id', auth, async (req, res) => {
   try {
     const bookmark = await Bookmark.findOneAndDelete({ 
