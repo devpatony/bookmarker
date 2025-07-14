@@ -1,5 +1,10 @@
 {
   "version": 2,
+  "functions": {
+    "api/index.js": {
+      "maxDuration": 30
+    }
+  },
   "builds": [
     {
       "src": "api/index.js",
@@ -16,11 +21,12 @@
       "dest": "/api/index.js"
     },
     {
+      "src": "/health",
+      "dest": "/api/index.js"
+    },
+    {
       "src": "/(.*)",
       "dest": "/frontend/$1"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
